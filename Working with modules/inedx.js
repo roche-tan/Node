@@ -5,6 +5,9 @@ const os = require('os');
 const fs = require('fs');
 const { SlowBuffer } = require('buffer');
 
+// allow us to use http in our server
+const http = require('http');
+
 console.log(os.platform());
 console.log(os.release());
 console.log('free mem: ', os.freemem(), ' bytes');
@@ -37,3 +40,13 @@ fs.readFile('./text.txt', function(err, data){
   //console.log(data); shows buffer
   console.log(data.toString()); //shows in string
 });
+
+// iniciatize server
+http.createServer(function(req, res){
+  res.writeHead(200, {'Content-type': 'text/html'});
+  res.write('<h1>Hola mundo</h1>');
+  res.end(); //need to end res always
+}).listen(3000); //in which server we want listen to it
+// once executed, only gets the 1st code executed. If modified, it will not appear. We have to stop server and call it again
+
+
