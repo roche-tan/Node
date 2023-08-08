@@ -8,6 +8,9 @@ const { SlowBuffer } = require('buffer');
 // allow us to use http in our server
 const http = require('http');
 
+// added colors module
+const colors = require('colors');
+
 console.log(os.platform());
 console.log(os.release());
 console.log('free mem: ', os.freemem(), ' bytes');
@@ -42,11 +45,22 @@ fs.readFile('./text.txt', function(err, data){
 });
 
 // iniciatize server
-http.createServer(function(req, res){
+/*http.createServer(function(req, res){
   res.writeHead(200, {'Content-type': 'text/html'});
   res.write('<h1>Hola mundo</h1>');
   res.end(); //need to end res always
-}).listen(3000); //in which server we want listen to it
+}).listen(3000); //in which server we want listen to it*/
 // once executed, only gets the 1st code executed. If modified, it will not appear. We have to stop server and call it again
 
+const handleServer = function (req, res){
+  res.writeHead(400, {'Content-type': 'text/plain'});
+  res.write('<h1>Hola mundo</h1>');
+  res.end();
+}
+
+const server= http.createServer(handleServer);
+
+server.listen(3000, function(){
+  console.log('Server on port 3000'.yellow);
+});
 
